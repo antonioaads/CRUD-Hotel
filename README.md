@@ -1,1 +1,4 @@
-# CRUD-Hotel
+# CRUD Hotel
+
+## Grupo 6 - Tela CRUD do hotel
+A partir de um hotel criado, o CRUD do quarto e, logo após será feita a tela de reserva de quartos (para criar elementos ReservaQuarto). Na tela de reserva de quartos, o usuário deverá selecionar o período inicial e final da viagem e a cidade que deseja efetuar a reserva e assim, será listado os tipos de quartos disponíveis neste período para a cidade em questão e o preço total (calculado a partir do preço da diária que por temporada). O usuário selecionará um desses tipos de quarto de um determinado hotel e, assim reservará um quarto desse determinado tipo do hotel correspondente. O TipoQuarto e PrecoPorTemporada deve ser cadastrado anualmente. 
