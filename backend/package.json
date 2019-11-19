@@ -1,0 +1,24 @@
+{
+  "name": "crud-hotel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_PATH=. node index",
+    "start-windows": "cmd.exe /C \"set NODE_PATH=.&& node index\"",
+    "test": "NODE_PATH=. npx standard",
+    "heroku-postbuild": "npm install && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "flat": "^5.0.0",
+    "pg": "^7.12.1"
+  },
+  "devDependencies": {
+    "standard": "*"
+  }
+}
