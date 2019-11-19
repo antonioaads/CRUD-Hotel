@@ -2,8 +2,8 @@
 
 DROP TABLE IF EXISTS reserva_quarto;
 DROP TABLE IF EXISTS quarto;
-DROP TABLE IF EXISTS tipo_quarto;
 DROP TABLE IF EXISTS preco_por_temporada;
+DROP TABLE IF EXISTS tipo_quarto;
 DROP TABLE IF EXISTS hotel;
 
 -- TABLES
@@ -12,6 +12,17 @@ CREATE TABLE hotel (
   id SERIAL,
 
   nome VARCHAR(50),
+
+  PRIMARY KEY (id)
+);
+
+
+CREATE TABLE tipo_quarto (
+  id SERIAL,
+
+  nom_tipo VARCHAR(50),
+  max_ocupantes INTEGER,
+  banheiro_compartilhado BOOLEAN,
 
   PRIMARY KEY (id)
 );
@@ -25,16 +36,6 @@ CREATE TABLE quarto (
   num_camas_solteiro INTEGER,
   num_camas_casal INTEGER,
   num_quarto INTEGER,
-
-  PRIMARY KEY (id)
-);
-
-CREATE TABLE tipo_quarto (
-  id SERIAL,
-
-  nom_tipo VARCHAR(50),
-  max_ocupantes INTEGER,
-  banheiro_compartilhado BOOLEAN,
 
   PRIMARY KEY (id)
 );
