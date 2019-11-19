@@ -1,36 +1,35 @@
 -- INSERTIONS
-INSERT INTO address_districts (name)
+INSERT INTO hotel (nome)
 VALUES
-  ('Ouro Preto'),
-  ('Bandeirantes'),
-  ('Santo Antonio'),
-  ('Gameleira')
+  ('Laplace'),
+  ('Checksum'),
+  ('Santo Totônio'),
+  ('Astaroth')
 ;
 
-INSERT INTO addresses (district_id, number, street)
+INSERT INTO tipo_quarto (nom_tipo, max_ocupantes, banheiro_compartilhado)
 VALUES
-  (1, 100, 'Rua Logo Ali'),
-  (2, 200, 'Rua Logo Aqui'),
-  (3, 300, 'Rua Logo Lá'),
-  (4, 500, 'Rua Logo Depois')
+  ('Deluxe', 8, FALSE),
+  ('Medium', 4, TRUE),
+  ('Low Tier', 2, TRUE)
 ;
 
-INSERT INTO property_types (type)
+INSERT INTO quarto (hotel_id, tipo_quarto_id, num_camas_solteiro, num_camas_casal, num_quarto)
 VALUES
-  ('Casa'),
-  ('Apartamento')
+  (1, 1, 4, 2, 0),
+  (1, 2, 2, 1, 10),
+  (1, 2, 2, 1, 20),
+  (1, 3, 2, 0, 30)
 ;
 
-INSERT INTO properties (type_id, addresses_id, qt_rooms, qt_suites, qt_lvrooms, qt_vacancies, area, builtin_cabinet, description, rent)
+INSERT INTO preco_por_temporada (tipo_quarto_id, preco, dat_inicio_temporada, dat_fim_temporada)
 VALUES
-  (1, 1, 3, 2, 2, 2, 11.5, TRUE, 'Uma descricao qualquer 1', 1000.99),
-  (1, 2, 3, 2, 2, 2, 12.5, TRUE, 'Uma descricao qualquer 2', 2000.99),
-  (2, 3, 3, 2, 2, 2, 13.5, TRUE, 'Uma descricao qualquer 3', 3000.99),
-  (2, 4, 3, 2, 2, 2, 14.5, TRUE, 'Uma descricao qualquer 4', 4000.99)
+  (1, 1000, NOW(), NOW() + INTERVAL '1' YEAR),
+  (2, 500, NOW(), NOW() + INTERVAL '1' YEAR),
+  (3, 100, NOW(), NOW() + INTERVAL '1' YEAR)
 ;
 
-INSERT INTO property_extras (property_id, qt_dnrooms, floor, condo_value, lobby_24h)
+INSERT INTO reserva_quarto (quarto_id, prc_pago, dat_inicio_estadia, qtd_noites)
 VALUES
-  (3, 3, 10, 1000.50, TRUE),
-  (4, 4, 11, 2000.55, FALSE)
+  (1, 1000, NOW(), 100)
 ;
