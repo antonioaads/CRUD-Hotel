@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { FaClosedCaptioning } from 'react-icons/fa';
-
 import styles from './Form.module.css';
 
 class Form extends React.Component{
@@ -10,49 +8,42 @@ class Form extends React.Component{
         super(props);
         this.state = {
             checkIn: '',
-            checkOut: ''
+            checkOut: '',
+            acao: props.acao
         };
-
-        this.handleChangeCheckIn = this.handleChangeCheckIn.bind(this);
-        this.handleChangeCheckOut = this.handleChangeCheckOut.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChangeCheckIn(event) {
+    handleChangeCheckIn = (event) => {
         this.setState({checkIn: event.target.value});
     }
 
-    handleChangeCheckOut(event) {
+    handleChangeCheckOut = (event) => {
         this.setState({checkOut: event.target.value});
     }
     
-    handleSubmit(event) {
-        alert('Um nome foi enviado: ' + this.state.value);
+    handleSubmit = (event) => {
+        const { acao, checkIn, checkOut } = this.state;
+        acao(checkIn, checkOut);
         event.preventDefault();
     }
 
     render(){
-        const { acao } = this.props;
-
+ 
         return(
             <div className={styles["container"]}>
                 <div className={styles["form"]}>
-                    <div className={styles["close"]} onClick={acao && acao()}>
-                        <FaClosedCaptioning/>
-                    </div>
-
+                    <div className={styles["title"]}> Escolha uma data</div>
                     <form onSubmit={this.handleSubmit}>
                         <label>
-                            CheckIn:
-                            <input type="date" value={this.state.checkIn} onChange={this.handleChange} />
+                            <span className={styles["check"]}>CheckIn:</span>
+                            <input type="date" value={this.state.checkIn} onChange={this.handleChangeCheckIn} />
                         </label>
                         <label>
-                            CheckOut:
-                            <input type="date" value={this.state.checkOut} onChange={this.handleChange} />
+                            <span className={styles["check"]}>CheckOut:</span>
+                            <input type="date" value={this.state.checkOut} onChange={this.handleChangeCheckOut} />
                         </label>
-                        <input type="submit" value="Enviar" />
+                        <input className={styles["button"]} type="submit" value="Ver Quartos" />
                     </form>
-
                 </div>
             </div>
         )
