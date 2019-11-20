@@ -25,12 +25,12 @@ class App extends React.Component {
             return(
               <ItemListagem 
                 key={quarto.id}
-                tipo="Deluxe"
+                tipo={quarto.nom_tipo}
                 pessoas={quarto.max_ocupantes}
                 camasCasal={quarto.num_camas_casal} 
                 camasSolteiro={quarto.num_camas_solteiro} 
                 numero={quarto.id}
-                preco="1000"
+                preco={quarto.preco}
                 precoFormatado= "R$ 1000,00"
                 acao={(quarto_id, prc_pago) => this.onClickQuarto(quarto_id, prc_pago)}
               />
@@ -74,13 +74,10 @@ class App extends React.Component {
 
   onClickQuarto = (quarto_id, prc_pago) => {
     const { checkin, checkout } = this.state;
-    debugger;
+    
     Axios.post("http://172.16.126.49:3677/room-reservations", { quarto_id, prc_pago, checkin, checkout}).then((response) => {
-      debugger;
-      console.log(response);
-    })
-
-    alert("Reserva feita com sucesso no quarto: " + quarto_id);
+      alert("Reserva feita com sucesso no quarto: " + quarto_id);
+    });
 
     this.setState({
       formAberto: true,

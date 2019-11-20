@@ -51,7 +51,7 @@ class ItemListagem extends React.Component {
                 </div>
                 <div className={styles["footer"]}>
                     <div className={styles["precos"]}>
-                        Preço: {this.props.precoFormatado}
+                        Preço: R${(this.props.preco).toLocaleString('pt-BR')}
                     </div>
                     <div className={styles["iconesAcao"]}>
                         
