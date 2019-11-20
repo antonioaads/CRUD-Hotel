@@ -7,7 +7,7 @@ const Quarto = pool => {
   const model = generic('quarto', columns, pool)
 
   model.findAllFromHotel = (id) => pool.query(`
-    SELECT q.*, t.max_ocupantes
+    SELECT q.*, t.max_ocupantes, t.nom_tipo
       FROM quarto q
       INNER JOIN tipo_quarto t ON q.tipo_quarto_id = t.id
       WHERE hotel_id = $1

@@ -36,7 +36,8 @@ module.exports = {
     }
 
     for (const i in vacantRooms) {
-      vacantRooms[i].preco = await PrecoPorTemporada.findLowestPrice(vacantRooms[i].id, req.query.checkin, req.query.checkout).then(r => r[0].preco)
+      vacantRooms[i].preco = await PrecoPorTemporada.findLowestPrice(vacantRooms[i].id, req.query.checkin, req.query.checkout)
+        .then(r => (r[0] || { preco: 50 }).preco)
       vacantRooms[i].preco *= Moment(req.query.checkout).diff(req.query.checkin, 'days')
     }
 
