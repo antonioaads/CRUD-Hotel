@@ -8,7 +8,7 @@ import Form from './components/Form';
 class App extends React.Component {
 
   state = {
-    formAberto: false,
+    formAberto: true,
   }
 
   render(){
