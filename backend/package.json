@@ -6,8 +6,7 @@
   "scripts": {
     "start": "NODE_PATH=. node index",
     "start-windows": "cmd.exe /C \"set NODE_PATH=.&& node index\"",
-    "test": "NODE_PATH=. npx standard",
-    "heroku-postbuild": "npm install && npm run build"
+    "test": "NODE_PATH=. npx standard"
   },
   "keywords": [],
   "author": "",

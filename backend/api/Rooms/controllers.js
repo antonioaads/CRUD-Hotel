@@ -14,8 +14,11 @@ module.exports = {
 
   createRooms: async (req, res) => {
     try {
-      const result = await Quarto.create(req.body.room)
-      res.send(result)
+      const room = await Quarto.create(req.body)
+
+      if (!room) throw new Error()
+
+      res.send(room)
     } catch (error) {
       console.error(error)
       res.status(400).send({ message: 'Could not create' })
@@ -25,7 +28,9 @@ module.exports = {
   updateRooms: async (req, res) => {
     try {
       const room = await Quarto.update(req.params.id, req.body)
-      res.send(room)
+
+      if (room) res.send(room)
+      else res.status(404).send({ message: 'Entity not found' })
     } catch (error) {
       console.error(error)
       res.status(400).send({ message: 'Could not update' })
@@ -35,7 +40,9 @@ module.exports = {
   deleteRooms: async (req, res) => {
     try {
       const room = await Quarto.delete(req.params.id)
-      res.send(room)
+
+      if (room) res.send(room)
+      else res.status(404).send({ message: 'Entity not found' })
     } catch (error) {
       console.error(error)
       res.status(400).send({ message: 'Could not delete' })
