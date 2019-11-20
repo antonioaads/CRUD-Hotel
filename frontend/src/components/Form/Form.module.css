@@ -1,0 +1,22 @@
+.container{
+    position: fixed;
+    background-color: rgba(0,0,0,0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 11;
+}
+
+.form {
+    background-color: white;
+    width: 200px;
+    height: 200px;
+}
+
+.close {
+    font-size: 20px;
+}
