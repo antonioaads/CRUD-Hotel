@@ -4,7 +4,8 @@ module.exports = {
   showHotel: async (req, res) => {
     const hotel = await Hotel.findByPk(req.params.id)
 
-    res.send(hotel)
+    if (hotel) res.send(hotel)
+    else res.status(404).send({ message: 'Entity not found' })
   },
 
   listHotels: async (req, res) => {

@@ -1,10 +1,18 @@
-const { Quarto } = require('database')
+const { Quarto, Hotel, TipoQuarto } = require('database')
 
 module.exports = {
   showRoom: async (req, res) => {
     const room = await Quarto.findByPk(req.params.id)
 
-    res.send(room)
+    if (room) {
+      room.hotel = await Hotel.findByPk(room.hotel_id)
+      delete room.hotel_id
+
+      room.tipo_quarto = await TipoQuarto.findByPk(room.tipo_quarto_id)
+      delete room.tipo_quarto_id
+
+      res.send(room)
+    } else res.status(404).send({ message: 'Entity not found' })
   },
 
   listRooms: async (req, res) => {
