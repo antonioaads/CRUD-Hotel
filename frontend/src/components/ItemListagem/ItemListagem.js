@@ -1,32 +1,33 @@
 import React from 'react'
 
-import { FaTrash, FaEdit, FaBed, FaRulerHorizontal} from 'react-icons/fa';
+import { FaBed, FaPersonBooth, FaCheck} from 'react-icons/fa';
 
 import styles from './ItemListagem.module.css'
 
 
 class ItemListagem extends React.Component {
+    handleClick = (event) => {
+        const { acao, numero, preco} = this.props;
+        acao(numero, preco);
+        event.preventDefault();
+    }
+
     render(){
         return (
             <div className={styles["container"]}>
                 <div className={styles["header"]}>
-                    <div className={styles["tipo"]}>
-                        {this.props.tipo}
-                    </div>
+                    
                     <div className={styles["rua"]}>
-                        {this.props.rua}
-                    </div>
-                    <div className={styles["bairro"]}>
-                        {this.props.bairro}
+                        {this.props.tipo} {this.props.numero}
                     </div>
     
                     <div className={styles["informacoes"]}>
                         <div className={styles["info-detalhe"]}>
                             <div className={styles["icones"]}>
-                                <FaRulerHorizontal />
+                                <FaPersonBooth/>
                             </div>
                             <div>
-                            {this.props.metrosQuadrados}
+                                {this.props.pessoas}
                             </div>
                         </div>
                         <div className={styles["info-detalhe"]}>
@@ -34,8 +35,15 @@ class ItemListagem extends React.Component {
                                 <FaBed />
                             </div>
                             <div>
-                            {this.props.numeroQuartos}
-    
+                                <b>C:</b>{this.props.camasCasal}
+                            </div>
+                        </div>
+                        <div className={styles["info-detalhe"]}>
+                            <div className={styles["icones"]}>
+                                <FaBed />
+                            </div>
+                            <div>
+                                <b>S:</b>{this.props.camasSolteiro}
                             </div>
                         </div>
                         
@@ -43,29 +51,18 @@ class ItemListagem extends React.Component {
                 </div>
                 <div className={styles["footer"]}>
                     <div className={styles["precos"]}>
-                        Preco x
+                        Preço: R${(this.props.preco).toLocaleString('pt-BR')}
                     </div>
                     <div className={styles["iconesAcao"]}>
-                        <div className={styles["button"]} onClick={this.acao}>
-                            <FaTrash /> 
+                        
+                        <div className={styles["button"]} onClick={this.handleClick}>
+                            <FaCheck />
                         </div>
-                        <div className={styles["button"]}>
-                            <FaEdit />
-                        </div>
-                    </div>
-    
-                    
+                    </div>    
                 </div>
             </div>
         );
-    }
-
-    acao = () => {
-        console.log("teste2");
-    }
-    
+    }   
 }
-
-    
 
 export default ItemListagem;

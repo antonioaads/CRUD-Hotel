@@ -7,7 +7,7 @@
     align-items: center;
     border-radius: 10px;
     width: 150px;
-    height: 120px;
+    height: 130px;
     padding: 20px;
     margin: 10px;
     box-sizing: border-box;
@@ -22,8 +22,6 @@
     cursor: pointer;
     background-color: #ffffff;
     transition-duration: 0.5s;
-    width: 250px;
-    height: 200px;
 }
 
 .icone{
