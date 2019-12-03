@@ -1,0 +1,42 @@
+.container {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+}
+
+.content-hotel {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    height: 100%;
+    background-color: rgb(112, 139, 173);
+    transition: all ease-in-out 1s;
+}
+
+.content-localizacao {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    height: 100%;
+    background-color: #98C1D9;
+}
+
+.content-passagem {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    height: 100%;
+    background-color: rgb(188, 228, 229);
+}
+
+.title {
+    font-size: 30px;
+    font-weight: bold;
+}
