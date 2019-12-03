@@ -1,4 +1,5 @@
 const { ReservaQuarto, Quarto } = require('database')
+const Moment = require('moment')
 
 module.exports = {
   showRoomReservation: async (req, res) => {
@@ -18,6 +19,27 @@ module.exports = {
 
   createRoomReservations: async (req, res) => {
     try {
+      const reservations = await ReservaQuarto.findAllFromRoom(req.body.quarto_id)
+
+      let vacant = true
+      for (const reservation of reservations) {
+        if (
+          Moment(reservation.dat_inicio_estadia).isSameOrBefore(Moment(req.body.checkout)) &&
+          Moment(reservation.dat_inicio_estadia).add(reservation.qtd_noites, 'days').isSameOrAfter(Moment(req.body.checkin))
+        ) {
+          vacant = false
+          break
+        }
+      }
+
+      if (!vacant) {
+        res.status(400).send({ message: 'Room already reserved' })
+        return
+      }
+
+      req.body.dat_inicio_estadia = req.body.checkin
+      req.body.qtd_noites = Moment(req.body.checkout).diff(req.body.checkin, 'days')
+
       const roomReserv = await ReservaQuarto.create(req.body)
 
       if (!roomReserv) throw new Error()

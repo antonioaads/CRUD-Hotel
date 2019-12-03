@@ -6,12 +6,12 @@ const Quarto = pool => {
   ]
   const model = generic('quarto', columns, pool)
 
-  // EXAMPLE ONLY - SHALL BE REMOVED SOON
-  model.findAllWithDistricts = () => pool.query(`
-    SELECT a.id, a.street, a.number, d.name district
-      FROM addresses a
-        INNER JOIN address_districts d ON a.district_id = d.id
-  `).then(({ rows }) => rows)
+  model.findAllFromHotel = (id) => pool.query(`
+    SELECT q.*, t.max_ocupantes, t.nom_tipo
+      FROM quarto q
+      INNER JOIN tipo_quarto t ON q.tipo_quarto_id = t.id
+      WHERE hotel_id = $1
+  `, [id]).then(({ rows }) => rows)
 
   return model
 }
