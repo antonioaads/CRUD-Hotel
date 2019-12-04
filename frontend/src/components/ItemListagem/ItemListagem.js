@@ -7,8 +7,8 @@ import styles from './ItemListagem.module.css'
 
 class ItemListagem extends React.Component {
     handleClick = (event) => {
-        const { acao, numero, preco} = this.props;
-        acao(numero, preco);
+        const { onReservationClick, numero, preco} = this.props;
+        onReservationClick(numero, preco);
         event.preventDefault();
     }
 

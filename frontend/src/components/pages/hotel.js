@@ -1,28 +1,52 @@
-import React from 'react';
-import Axios from 'axios';
+import React from 'react'
+import Axios from 'axios'
+import Moment from 'moment'
 
 import ItemListagem from '../ItemListagem';
+import ItemReservas from '../ItemReservas';
 import ItemAdicionar from '../ItemAdicionar';
 import Form from '../Form';
+import Header from '../Header';
+
+import styles from './hotel.css';
 
 class Hotel extends React.Component {
 
-  state = {
-    formAberto: true,
-    quartos: [],
-    checkin: null,
-    checkout: null
+  constructor (props) {
+    super(props)
+    this.state = {
+      formAberto: false,
+      quartos: [],
+      reservas: [],
+      checkin: null,
+      checkout: null,
+      page: 'booked',
+      selectedReservationId: null
+    }
+
+    this.updateReservas()
+  }
+
+  onPageChange = (newPage) => {
+    switch (newPage) {
+      case 'booked':
+        this.updateReservas()
+        break
+      case 'reservation':
+        this.updateQuartos()
+        break
+      default:
+    }
   }
 
   render(){
     {this.state.quartos && console.log(this.state.quartos)}
     return (
-      <div className="App">
-        <header className="App-header">
-          {this.state.quartos &&  this.state.quartos.map(quarto => {
-            console.log(quarto);
-
-            return(
+      <div className="Hotel">
+        <Header title="RESERVAS" onPageChange={this.onPageChange}/>
+        { this.state.page === 'reservation' &&
+          <div className="Hotel-List">
+            {this.state.quartos && this.state.quartos.map(quarto => (
               <ItemListagem 
                 key={quarto.id}
                 tipo={quarto.nom_tipo}
@@ -32,56 +56,100 @@ class Hotel extends React.Component {
                 numero={quarto.id}
                 preco={quarto.preco}
                 precoFormatado= "R$ 1000,00"
-                acao={(quarto_id, prc_pago) => this.onClickQuarto(quarto_id, prc_pago)}
+                onReservationClick={this.onClickQuarto}
               />
-            )
+            ))}
 
-          })}
+            <ItemAdicionar acao={() => this.onClickPlus()}/>
+          </div>
+        }
+        { this.state.page === 'booked' &&
+          <div className="Hotel-List">
+            {this.state.reservas && this.state.reservas.map(reserva => {
+              console.log(Moment(reserva.dat_inicio_estadia).format('DD/MM/YYYY'))
+              return (
+              <ItemReservas
+                key={reserva.id}
+                id={reserva.id}
+                quarto={reserva.quarto_id}
+                checkin={Moment(reserva.dat_inicio_estadia).format('DD/MM/YYYY')}
+                checkout={Moment(reserva.dat_inicio_estadia).add(reserva.qtd_noites, 'days').format('DD/MM/YYYY')}
+                preco={reserva.prc_pago}
+                onUpdateClick={this.onClickPlus}
+                onDeleteClick={this.onReservationDelete}
+              />
+              )
+            })}
 
-          <ItemAdicionar acao={() => this.onClickPlus()}/>
-
-          {this.state.formAberto && <Form acao={(checkIn, checkOut) => this.onClickClose(checkIn, checkOut)}/>}
-
-          
-        </header>
+          </div>
+        }
+        {this.state.formAberto && <Form acao={(checkIn, checkOut) => this.onClickClose(checkIn, checkOut)}/>}
       </div>
-    );
+    )
   }
 
-  onClickPlus = () => {
-
+  onClickPlus = (id) => {
     this.setState({
-      formAberto: true
+      formAberto: true,
+      selectedReservationId: id
     })
   }
 
   onClickClose = (checkin, checkout) => {
-    console.log("checkIn:" + checkin);
-    console.log("checkOut:" + checkout);
+    switch (this.state.page) {
+      case 'booked':
+        this.setState({ checkin, checkout }, () => (
+          this.state.selectedReservationId &&
+            Axios.put(`http://localhost:3676/room-reservations/${this.state.selectedReservationId}`, { dat_inicio_estadia: checkin, qtd_noites: Math.abs(Moment(checkin).diff(checkout, 'days')) })
+              .then(res => this.updateReservas())
+        ))
+        break
+      case 'reservation':
+        this.updateQuartos(checkin, checkout)
+        break
+    }
+  }
 
-    let quartos = null;
-
-    Axios.get(`http://172.16.126.49:3677/hotels/rooms?idhotel=1&checkin=${checkin}&checkout=${checkout}`).then((response) => {
-      quartos = response.data;
-      this.setState({
-        formAberto: false,
-        quartos, 
-        checkin,
-        checkout
-      });
-    }); 
+  onReservationDelete = (id) => {
+    Axios.delete(`http://localhost:3676/room-reservations/${id}`).then(() => this.updateReservas())
   }
 
   onClickQuarto = (quarto_id, prc_pago) => {
     const { checkin, checkout } = this.state;
     
-    Axios.post("http://172.16.126.49:3677/room-reservations", { quarto_id, prc_pago, checkin, checkout}).then((response) => {
+    Axios.post("http://localhost:3676/room-reservations", { quarto_id, prc_pago, checkin, checkout}).then((response) => {
       alert("Reserva feita com sucesso no quarto: " + quarto_id);
-    });
+    })
 
     this.setState({
       formAberto: true,
-    });
+    })
+  }
+
+  updateQuartos = (checkin, checkout) => {
+    Axios.get(`http://localhost:3676/hotels/rooms?idhotel=1${checkin && checkout ? `&checkin=${checkin}` : ''}${checkin && checkout ? `&checkout=${checkout}` : ''}`).then((response) => {
+      const quartos = response.data;
+      this.setState({
+        page: 'reservation',
+        formAberto: false,
+        quartos,
+        reservas: [],
+        checkin,
+        checkout
+      })
+    })
+  }
+
+  updateReservas = () => {
+    Axios.get(`http://localhost:3676/room-reservations`).then((response) => {
+      const reservas = response.data;
+      this.setState({
+        page: 'booked',
+        formAberto: false,
+        quartos: [],
+        reservas
+      })
+    })
   }
 }
 

@@ -1,0 +1,16 @@
+.Hotel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  min-height: inherit;
+  background-image: url("../../assets/bg.jpg");
+  box-shadow: inset 0 0 0 100vw rgba(255, 255, 255, 0.82);
+}
+
+.Hotel-List {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

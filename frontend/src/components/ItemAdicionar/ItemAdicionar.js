@@ -11,8 +11,8 @@ class ItemAdicionar extends React.Component{
                 <div className={styles["icone"]}>
                     <FaSearch height="20"/>    
                 </div>
-            </div>  
-        );
+            </div>
+        )
     }
 }
 

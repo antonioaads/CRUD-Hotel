@@ -9,6 +9,8 @@ import {
 import Integracao from './components/pages/integracao';
 import Hotel from './components/pages/hotel';
 
+import styles from './App.css'
+
 class App extends React.Component {
   render () {
     return (
