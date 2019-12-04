@@ -38,6 +38,9 @@ module.exports = {
         }
       }
 
+      vacant.hotel = await Hotel.findByPk(vacant.hotel_id)
+      console.log(vacant, vacant.hotel)
+      delete vacant.hotel_id
       if (vacant) vacantRooms.push(room)
     }
 
