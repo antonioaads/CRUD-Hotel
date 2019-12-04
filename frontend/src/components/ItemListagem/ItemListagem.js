@@ -18,6 +18,10 @@ class ItemListagem extends React.Component {
                 <div className={styles["header"]}>
                     
                     <div className={styles["rua"]}>
+                        <b>Hotel </b>{this.props.nomeHotel}
+                    </div>
+
+                    <div className={styles["rua"]}>
                         {this.props.tipo} {this.props.numero}
                     </div>
     

@@ -49,6 +49,7 @@ class Hotel extends React.Component {
             {this.state.quartos && this.state.quartos.map(quarto => (
               <ItemListagem 
                 key={quarto.id}
+                nomeHotel={quarto.hotel.nome}
                 tipo={quarto.nom_tipo}
                 pessoas={quarto.max_ocupantes}
                 camasCasal={quarto.num_camas_casal} 
