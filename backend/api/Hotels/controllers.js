@@ -1,4 +1,5 @@
 const { Hotel, Quarto, ReservaQuarto, PrecoPorTemporada } = require('database')
+const { isNil } = require('utils')
 const Moment = require('moment')
 
 module.exports = {
@@ -15,6 +16,11 @@ module.exports = {
   },
 
   listOwnedRooms: async (req, res) => {
+    if (isNil(req.query.checkin) || isNil(req.query.checkout) || (!Moment(req.query.checkin).isValid() || !Moment(req.query.checkout).isValid())) {
+      res.send([])
+      return
+    }
+
     const roomList = await Quarto.findAllFromHotel(req.query.idhotel)
     const vacantRooms = []
 

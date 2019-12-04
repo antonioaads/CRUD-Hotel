@@ -5,38 +5,68 @@
     display: flex;
 }
 
-.content-hotel {
+.content-hoteis {
     flex: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
     height: 100%;
-    background-color: rgb(112, 139, 173);
-    transition: all ease-in-out 1s;
+
+    background-image: url("/images/hoteis.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .content-localizacao {
     flex: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
     height: 100%;
-    background-color: #98C1D9;
+
+    background-image: url("/images/localizacao.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
-.content-passagem {
+.content-reserva {
     flex: 3;
+    height: 100%;
+
+    background-image: url("/images/reserva.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.background {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    height: 100%;
-    background-color: rgb(188, 228, 229);
+    justify-content: center;
+    
+    min-width: 100%;
+    min-height: 100%;
+
+    transition: ease-in-out .8s;
 }
+
+.background .title {
+    display: none;
+}
+
+.background:hover {
+    background-color: rgba(0, 0, 0, 0.699);
+}
+
+.background:hover .title {
+    display: block;
+}
+
 
 .title {
-    font-size: 30px;
+    font-size: 44px;
     font-weight: bold;
+    color: white;
+
+}
+
+a {
+    text-decoration: none;
 }

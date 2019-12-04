@@ -21,14 +21,8 @@ class App extends React.Component {
               <Route path='/' exact>
                 <Integracao />
               </Route>
-              <Route path='/hotel' >
+              <Route path='/reservations' >
                 <Hotel />
-              </Route>
-              <Route path='/localizacao' >
-                <Redirect to="http://www.google.com" />
-              </Route>
-              <Route path='/isaque' >
-                <Integracao />
               </Route>
             </Switch>
           </Router>
