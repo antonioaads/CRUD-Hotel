@@ -1,8 +1,9 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 
 import {ReactComponent as Logo} from './hotel.svg'
-import { FaSearch } from 'react-icons/fa'
+import { FaChevronLeft, FaMapSigns, FaBook } from 'react-icons/fa'
 
 const Wrapper = styled.div`
   display: flex;
@@ -55,6 +56,10 @@ const Text = styled.p`
   color: grey;
 `
 
+const IconWrapper = styled.div`
+  padding: 2px;
+`
+
 const Header = props => (
   <Wrapper>
     <LogoWrapper>
@@ -62,12 +67,13 @@ const Header = props => (
       <Text>{props.title}</Text>
     </LogoWrapper>
     <InputWrapper>
-      <Button withBorder onClick={() => props.onPageChange('booked')}>SUAS RESERVAS</Button>
-      <Button withBorder onClick={() => props.onPageChange('reservation')}>DISPONÍVEIS</Button>
+      <Button withBorder onClick={() => props.onPageChange('booked')}><IconWrapper><FaBook /></IconWrapper>SUAS RESERVAS</Button>
+      <Button withBorder onClick={() => props.onPageChange('reservation')}><IconWrapper><FaMapSigns /></IconWrapper>DISPONÍVEIS</Button>
+      <Button withBorder onClick={() => props.history.push('/')}><IconWrapper><FaChevronLeft /></IconWrapper>RETORNAR</Button>
       {/* <Input placeholder="Digite o endereço" />
       <Button><FaSearch color="grey"/></Button> */}
     </InputWrapper>
   </Wrapper>
 )
 
-export default Header
+export default withRouter(Header)

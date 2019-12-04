@@ -120,10 +120,8 @@ class Hotel extends React.Component {
     Axios.post("http://localhost:3676/room-reservations", { quarto_id, prc_pago, checkin, checkout}).then((response) => {
       alert("Reserva feita com sucesso no quarto: " + quarto_id);
     })
-
-    this.setState({
-      formAberto: true,
-    })
+    
+    this.updateQuartos()
   }
 
   updateQuartos = (checkin, checkout) => {
